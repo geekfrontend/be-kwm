@@ -44,3 +44,8 @@ export { Prisma }
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model Attendance
+ * 
+ */
+export type Attendance = Prisma.AttendanceModel

@@ -7,15 +7,7 @@ if (!connectionString) {
 	throw new Error("DATABASE_URL is not defined");
 }
 
-const url = new URL(connectionString);
-
-const adapter = new PrismaMariaDb({
-	host: url.hostname,
-	port: Number(url.port) || 3306,
-	user: url.username,
-	password: url.password,
-	database: url.pathname.slice(1), // remove leading /
-});
+const adapter = new PrismaMariaDb(connectionString);
 
 const prisma = new PrismaClient({ adapter });
 
