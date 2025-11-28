@@ -1,0 +1,28 @@
+generator client {
+  provider   = "prisma-client"
+  output     = "./generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum Role {
+  ADMIN
+  SECURITY
+  EMPLOYEE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  token     String?  @db.Text
+  role      Role     @default(EMPLOYEE)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}

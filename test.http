@@ -1,0 +1,23 @@
+@baseUrl = http://localhost:3000
+
+### Login Admin
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice",
+  "password": "pas"
+}
+
+### Get Me (Admin)
+GET http://localhost:3000/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWloa2F6cnAwMDAwdnl4djcxdDFybndtIiwiZW1haWwiOiJhbGljZUBwcmlzbWEuaW8iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NjQzMDI0MDMsImV4cCI6MTc2NDM4ODgwM30.GV-z55C4NgE2PMBTic1ke10YTVpnycc2A6teVerfst8
+
+
+### Get Users (Paginated)
+GET http://localhost:3000/users?page=1&pageSize=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWloa2F6cnAwMDAwdnl4djcxdDFybndtIiwiZW1haWwiOiJhbGljZUBwcmlzbWEuaW8iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NjQzMDI0MDMsImV4cCI6MTc2NDM4ODgwM30.GV-z55C4NgE2PMBTic1ke10YTVpnycc2A6teVerfst8
+
+### Logout Admin
+DELETE http://localhost:3000/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWloa2F6cnAwMDAwdnl4djcxdDFybndtIiwiZW1haWwiOiJhbGljZUBwcmlzbWEuaW8iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NjQzMDI0MDMsImV4cCI6MTc2NDM4ODgwM30.GV-z55C4NgE2PMBTic1ke10YTVpnycc2A6teVerfst8
