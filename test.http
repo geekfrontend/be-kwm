@@ -5,8 +5,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "alice",
-  "password": "pas"
+  "email": "alice@prisma.io",
+  "password": "password123"
 }
 
 ### Get Me (Admin)
