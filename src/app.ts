@@ -5,6 +5,7 @@ import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import securityRoutes from "./routes/securityRoutes";
 import attendanceRoutes from "./routes/attendanceRoutes";
+import divisionRoutes from "./routes/divisionRoutes";
 import { errorHandler } from "./middlewares/errorMiddleware";
 
 if (!process.env.JWT_SECRET) {
@@ -13,13 +14,24 @@ if (!process.env.JWT_SECRET) {
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:3000")
+	.split(",")
+	.map((s) => s.trim())
+	.filter(Boolean);
+
+app.use(
+	cors({
+		origin: allowedOrigins,
+		credentials: true,
+	}),
+);
 app.use(express.json());
 
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/api/security", securityRoutes);
 app.use("/api/attendance", attendanceRoutes);
+app.use("/api/divisions", divisionRoutes);
 
 app.use(errorHandler);
 

@@ -151,6 +151,13 @@ export type DateTimeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
 }
 
+export type EnumAttendanceStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttendanceStatus | Prisma.EnumAttendanceStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AttendanceStatus[] | null
+  notIn?: $Enums.AttendanceStatus[] | null
+  not?: Prisma.NestedEnumAttendanceStatusNullableFilter<$PrismaModel> | $Enums.AttendanceStatus | null
+}
+
 export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
   in?: Date[] | string[] | null
@@ -163,6 +170,16 @@ export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type EnumAttendanceStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttendanceStatus | Prisma.EnumAttendanceStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AttendanceStatus[] | null
+  notIn?: $Enums.AttendanceStatus[] | null
+  not?: Prisma.NestedEnumAttendanceStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.AttendanceStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAttendanceStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAttendanceStatusNullableFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -319,6 +336,13 @@ export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
 }
 
+export type NestedEnumAttendanceStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttendanceStatus | Prisma.EnumAttendanceStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AttendanceStatus[] | null
+  notIn?: $Enums.AttendanceStatus[] | null
+  not?: Prisma.NestedEnumAttendanceStatusNullableFilter<$PrismaModel> | $Enums.AttendanceStatus | null
+}
+
 export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
   in?: Date[] | string[] | null
@@ -331,6 +355,16 @@ export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumAttendanceStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttendanceStatus | Prisma.EnumAttendanceStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AttendanceStatus[] | null
+  notIn?: $Enums.AttendanceStatus[] | null
+  not?: Prisma.NestedEnumAttendanceStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.AttendanceStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAttendanceStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAttendanceStatusNullableFilter<$PrismaModel>
 }
 
 

@@ -35,6 +35,7 @@ export const getUsers = async (
 			email: true,
 			role: true,
 			isActive: true,
+			division: { select: { id: true, name: true } },
 			createdAt: true,
 			updatedAt: true,
 		};

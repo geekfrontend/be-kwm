@@ -8,11 +8,12 @@ const userSelect = {
 	email: true,
 	role: true,
 	isActive: true,
+	division: { select: { id: true, name: true } },
 	createdAt: true,
 	updatedAt: true,
 };
 
-export const createUser = async (data: Prisma.UserCreateInput) => {
+export const createUser = async (data: Prisma.UserUncheckedCreateInput) => {
 	const hashedPassword = await bcrypt.hash(data.password, 10);
 	return await prisma.user.create({
 		data: {
@@ -48,7 +49,10 @@ export const getUserByEmail = async (email: string) => {
 	});
 };
 
-export const updateUser = async (id: string, data: Prisma.UserUpdateInput) => {
+export const updateUser = async (
+	id: string,
+	data: Prisma.UserUncheckedUpdateInput,
+) => {
 	if (typeof data.password === "string") {
 		data.password = await bcrypt.hash(data.password, 10);
 	} else if (

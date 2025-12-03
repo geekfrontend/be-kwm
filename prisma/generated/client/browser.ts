@@ -27,3 +27,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Attendance = Prisma.AttendanceModel
+/**
+ * Model Division
+ * 
+ */
+export type Division = Prisma.DivisionModel

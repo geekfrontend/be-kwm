@@ -115,7 +115,14 @@ export const scanAttendance = async (qr: string): Promise<ScanResult> => {
 	const now = new Date();
 	const todayDate = witaDateOnly(now);
 
-	const result = await prisma.$transaction(async (tx) => {
+    const add = addWitaOffset;
+    const cut = removeWitaOffset;
+    const cutoffCalc = add(now);
+    cutoffCalc.setUTCHours(8, 0, 0, 0);
+    const cutoffUtc = cut(cutoffCalc);
+    const isOnTime = now <= cutoffUtc;
+
+    const result = await prisma.$transaction(async (tx) => {
 		const prevOpen = await tx.attendance.findFirst({
 			where: { userId, checkOutAt: null, attendanceDate: { lt: todayDate } },
 			orderBy: { attendanceDate: "desc" },
@@ -141,55 +148,63 @@ export const scanAttendance = async (qr: string): Promise<ScanResult> => {
 			},
 		});
 
-		if (!rec) {
-			const created = await tx.attendance.create({
-				data: { userId, attendanceDate: todayDate, checkInAt: now },
-				select: {
-					id: true,
-					userId: true,
-					attendanceDate: true,
-					checkInAt: true,
-					checkOutAt: true,
-					createdAt: true,
-					updatedAt: true,
-				},
-			});
-			return { mode: "CHECK_IN", attendance: created } as ScanResult;
-		}
+        if (!rec) {
+            const created = await tx.attendance.create({
+                data: {
+                    userId,
+                    attendanceDate: todayDate,
+                    checkInAt: now,
+                    status: isOnTime ? "ONTIME" : "LATE",
+                },
+                select: {
+                    id: true,
+                    userId: true,
+                    attendanceDate: true,
+                    checkInAt: true,
+                    checkOutAt: true,
+                    status: true,
+                    createdAt: true,
+                    updatedAt: true,
+                },
+            });
+            return { mode: "CHECK_IN", attendance: created } as ScanResult;
+        }
 
-		if (!rec.checkInAt) {
-			const updated = await tx.attendance.update({
-				where: { id: rec.id },
-				data: { checkInAt: now },
-				select: {
-					id: true,
-					userId: true,
-					attendanceDate: true,
-					checkInAt: true,
-					checkOutAt: true,
-					createdAt: true,
-					updatedAt: true,
-				},
-			});
-			return { mode: "CHECK_IN", attendance: updated } as ScanResult;
-		}
+        if (!rec.checkInAt) {
+            const updated = await tx.attendance.update({
+                where: { id: rec.id },
+                data: { checkInAt: now, status: isOnTime ? "ONTIME" : "LATE" },
+                select: {
+                    id: true,
+                    userId: true,
+                    attendanceDate: true,
+                    checkInAt: true,
+                    checkOutAt: true,
+                    status: true,
+                    createdAt: true,
+                    updatedAt: true,
+                },
+            });
+            return { mode: "CHECK_IN", attendance: updated } as ScanResult;
+        }
 
-		if (!rec.checkOutAt) {
-			const updated = await tx.attendance.update({
-				where: { id: rec.id },
-				data: { checkOutAt: now },
-				select: {
-					id: true,
-					userId: true,
-					attendanceDate: true,
-					checkInAt: true,
-					checkOutAt: true,
-					createdAt: true,
-					updatedAt: true,
-				},
-			});
-			return { mode: "CHECK_OUT", attendance: updated } as ScanResult;
-		}
+        if (!rec.checkOutAt) {
+            const updated = await tx.attendance.update({
+                where: { id: rec.id },
+                data: { checkOutAt: now },
+                select: {
+                    id: true,
+                    userId: true,
+                    attendanceDate: true,
+                    checkInAt: true,
+                    checkOutAt: true,
+                    status: true,
+                    createdAt: true,
+                    updatedAt: true,
+                },
+            });
+            return { mode: "CHECK_OUT", attendance: updated } as ScanResult;
+        }
 
 		const err = new Error("Presensi hari ini lengkap") as Error & {
 			status?: number;
@@ -208,22 +223,93 @@ export const getMyAttendance = async (
 ) => {
 	const skip = (page - 1) * pageSize;
 	const [items, totalItems] = await Promise.all([
-		prisma.attendance.findMany({
-			where: { userId },
-			orderBy: [{ attendanceDate: "desc" }, { createdAt: "desc" }],
-			skip,
-			take: pageSize,
-			select: {
-				id: true,
-				userId: true,
-				attendanceDate: true,
-				checkInAt: true,
-				checkOutAt: true,
-				createdAt: true,
-				updatedAt: true,
-			},
-		}),
+        prisma.attendance.findMany({
+            where: { userId },
+            orderBy: [{ attendanceDate: "desc" }, { createdAt: "desc" }],
+            skip,
+            take: pageSize,
+            select: {
+                id: true,
+                userId: true,
+                attendanceDate: true,
+                checkInAt: true,
+                checkOutAt: true,
+                status: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+        }),
 		prisma.attendance.count({ where: { userId } }),
 	]);
 	return { items, totalItems };
+};
+
+export const getTodayAttendance = async (userId: string) => {
+	const now = new Date();
+	const start = startOfDayWita(now);
+	const end = endOfDayWita(now);
+	const rec = await prisma.attendance.findFirst({
+		where: {
+			userId,
+			createdAt: { gte: start, lte: end },
+		},
+        orderBy: { createdAt: "desc" },
+        select: {
+            id: true,
+            userId: true,
+            checkInAt: true,
+            checkOutAt: true,
+            status: true,
+            createdAt: true,
+            updatedAt: true,
+        },
+    });
+    if (!rec) return null;
+    const attendanceDate = witaDateOnly(rec.createdAt);
+    return { ...rec, attendanceDate };
+};
+
+export const getTodaySummary = async (cutoffHour = 8, cutoffMinute = 0) => {
+	const now = new Date();
+	const start = startOfDayWita(now);
+	const end = endOfDayWita(now);
+	const users = await prisma.user.findMany({
+		where: { isActive: true },
+		select: { id: true },
+	});
+	const ids = users.map((u) => u.id);
+	const totalUsers = ids.length;
+	if (totalUsers === 0) {
+		return { belumCheckIn: 0, onTime: 0, terlambat: 0, totalUsers: 0 };
+	}
+	const records = await prisma.attendance.findMany({
+		where: {
+			userId: { in: ids },
+			createdAt: { gte: start, lte: end },
+		},
+		select: { userId: true, checkInAt: true },
+	});
+	const add = addWitaOffset;
+	const cut = removeWitaOffset;
+	const d = add(now);
+	d.setUTCHours(cutoffHour, cutoffMinute, 0, 0);
+	const cutoffUtc = cut(d);
+	let belumCheckIn = 0;
+	let onTime = 0;
+	let terlambat = 0;
+	const map = new Map<string, { checkInAt: Date | null }>();
+	for (const r of records) {
+		map.set(r.userId, { checkInAt: r.checkInAt ?? null });
+	}
+	for (const id of ids) {
+		const rec = map.get(id);
+		if (!rec || !rec.checkInAt) {
+			belumCheckIn++;
+		} else if (rec.checkInAt <= cutoffUtc) {
+			onTime++;
+		} else {
+			terlambat++;
+		}
+	}
+	return { belumCheckIn, onTime, terlambat, totalUsers };
 };

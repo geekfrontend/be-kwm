@@ -1,6 +1,6 @@
 generator client {
-  provider   = "prisma-client"
-  output     = "./generated/client"
+  provider = "prisma-client"
+  output   = "./generated/client"
 }
 
 datasource db {
@@ -14,34 +14,54 @@ enum Role {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String
-  token     String?  @db.Text
-  role      Role     @default(EMPLOYEE)
-  isActive  Boolean  @default(true) @map("is_active")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id          String       @id @default(cuid())
+  name        String
+  email       String       @unique
+  password    String
+  token       String?      @db.Text
+  role        Role         @default(EMPLOYEE)
+  isActive    Boolean      @default(true) @map("is_active")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
   attendances Attendance[]
+  divisionId  String?      @map("division_id")
+  division    Division?    @relation(fields: [divisionId], references: [id], onDelete: SetNull)
 
+  @@index([divisionId])
   @@map("users")
 }
 
 model Attendance {
-  id         String   @id @default(cuid())
-  userId     String   @map("user_id")
-  attendanceDate DateTime @db.Date @map("attendance_date")
+  id             String   @id @default(cuid())
+  userId         String   @map("user_id")
+  attendanceDate DateTime @map("attendance_date") @db.Date
 
-  checkInAt  DateTime? @map("check_in_at")
-  checkOutAt DateTime? @map("check_out_at")
+  checkInAt  DateTime?         @map("check_in_at")
+  checkOutAt DateTime?         @map("check_out_at")
+  status     AttendanceStatus? @map("status")
 
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime  @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  user       User      @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
-  @@map("attendances")
   @@unique([userId, attendanceDate])
   @@index([userId])
+  @@map("attendances")
+}
+
+enum AttendanceStatus {
+  ONTIME
+  LATE
+}
+
+model Division {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  users       User[]
+
+  @@map("divisions")
 }

@@ -5,6 +5,8 @@ import {
 	scanAttendance,
 	getMyAttendance,
 	generateQrString,
+	getTodayAttendance,
+	getTodaySummary,
 } from "../services/attendanceService";
 
 export const scan = async (req: Request, res: Response, next: NextFunction) => {
@@ -79,6 +81,41 @@ export const myQr = async (req: Request, res: Response, next: NextFunction) => {
 		lastQrAt.set(userId, now);
 		const { qr, expiresInMs } = generateQrString(userId);
 		sendSuccess(res, { qr, expiresInMs }, "QR berhasil dibuat");
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const myToday = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const userId = (req as AuthRequest).user?.userId;
+		if (!userId) {
+			const err = new Error("Unauthorized") as Error & { status?: number };
+			err.status = 401;
+			throw err;
+		}
+		const attendance = await getTodayAttendance(userId);
+		const msg = attendance
+			? "Presensi hari ini berhasil diambil"
+			: "Belum ada presensi hari ini";
+		sendSuccess(res, attendance, msg);
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const dashboardSummary = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const summary = await getTodaySummary();
+		sendSuccess(res, summary, "Ringkasan presensi hari ini berhasil diambil");
 	} catch (error) {
 		next(error);
 	}

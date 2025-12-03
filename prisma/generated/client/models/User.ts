@@ -34,6 +34,7 @@ export type UserMinAggregateOutputType = {
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  divisionId: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -46,6 +47,7 @@ export type UserMaxAggregateOutputType = {
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  divisionId: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -58,6 +60,7 @@ export type UserCountAggregateOutputType = {
   isActive: number
   createdAt: number
   updatedAt: number
+  divisionId: number
   _all: number
 }
 
@@ -72,6 +75,7 @@ export type UserMinAggregateInputType = {
   isActive?: true
   createdAt?: true
   updatedAt?: true
+  divisionId?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -84,6 +88,7 @@ export type UserMaxAggregateInputType = {
   isActive?: true
   createdAt?: true
   updatedAt?: true
+  divisionId?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -96,6 +101,7 @@ export type UserCountAggregateInputType = {
   isActive?: true
   createdAt?: true
   updatedAt?: true
+  divisionId?: true
   _all?: true
 }
 
@@ -181,6 +187,7 @@ export type UserGroupByOutputType = {
   isActive: boolean
   createdAt: Date
   updatedAt: Date
+  divisionId: string | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -214,7 +221,9 @@ export type UserWhereInput = {
   isActive?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  divisionId?: Prisma.StringNullableFilter<"User"> | string | null
   attendances?: Prisma.AttendanceListRelationFilter
+  division?: Prisma.XOR<Prisma.DivisionNullableScalarRelationFilter, Prisma.DivisionWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -227,7 +236,9 @@ export type UserOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  divisionId?: Prisma.SortOrderInput | Prisma.SortOrder
   attendances?: Prisma.AttendanceOrderByRelationAggregateInput
+  division?: Prisma.DivisionOrderByWithRelationInput
   _relevance?: Prisma.UserOrderByRelevanceInput
 }
 
@@ -244,7 +255,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  divisionId?: Prisma.StringNullableFilter<"User"> | string | null
   attendances?: Prisma.AttendanceListRelationFilter
+  division?: Prisma.XOR<Prisma.DivisionNullableScalarRelationFilter, Prisma.DivisionWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -257,6 +270,7 @@ export type UserOrderByWithAggregationInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  divisionId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -275,6 +289,7 @@ export type UserScalarWhereWithAggregatesInput = {
   isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  divisionId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -288,6 +303,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+  division?: Prisma.DivisionCreateNestedOneWithoutUsersInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -300,6 +316,7 @@ export type UserUncheckedCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  divisionId?: string | null
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -314,6 +331,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+  division?: Prisma.DivisionUpdateOneWithoutUsersNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -326,6 +344,7 @@ export type UserUncheckedUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  divisionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -339,6 +358,7 @@ export type UserCreateManyInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  divisionId?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -363,6 +383,7 @@ export type UserUncheckedUpdateManyInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  divisionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserOrderByRelevanceInput = {
@@ -381,6 +402,7 @@ export type UserCountOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  divisionId?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -393,6 +415,7 @@ export type UserMaxOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  divisionId?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -405,11 +428,22 @@ export type UserMinOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  divisionId?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserListRelationFilter = {
+  every?: Prisma.UserWhereInput
+  some?: Prisma.UserWhereInput
+  none?: Prisma.UserWhereInput
+}
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -446,6 +480,48 @@ export type UserUpdateOneRequiredWithoutAttendancesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttendancesInput, Prisma.UserUpdateWithoutAttendancesInput>, Prisma.UserUncheckedUpdateWithoutAttendancesInput>
 }
 
+export type UserCreateNestedManyWithoutDivisionInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDivisionInput, Prisma.UserUncheckedCreateWithoutDivisionInput> | Prisma.UserCreateWithoutDivisionInput[] | Prisma.UserUncheckedCreateWithoutDivisionInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDivisionInput | Prisma.UserCreateOrConnectWithoutDivisionInput[]
+  createMany?: Prisma.UserCreateManyDivisionInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutDivisionInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDivisionInput, Prisma.UserUncheckedCreateWithoutDivisionInput> | Prisma.UserCreateWithoutDivisionInput[] | Prisma.UserUncheckedCreateWithoutDivisionInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDivisionInput | Prisma.UserCreateOrConnectWithoutDivisionInput[]
+  createMany?: Prisma.UserCreateManyDivisionInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutDivisionNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDivisionInput, Prisma.UserUncheckedCreateWithoutDivisionInput> | Prisma.UserCreateWithoutDivisionInput[] | Prisma.UserUncheckedCreateWithoutDivisionInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDivisionInput | Prisma.UserCreateOrConnectWithoutDivisionInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutDivisionInput | Prisma.UserUpsertWithWhereUniqueWithoutDivisionInput[]
+  createMany?: Prisma.UserCreateManyDivisionInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutDivisionInput | Prisma.UserUpdateWithWhereUniqueWithoutDivisionInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutDivisionInput | Prisma.UserUpdateManyWithWhereWithoutDivisionInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutDivisionNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDivisionInput, Prisma.UserUncheckedCreateWithoutDivisionInput> | Prisma.UserCreateWithoutDivisionInput[] | Prisma.UserUncheckedCreateWithoutDivisionInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDivisionInput | Prisma.UserCreateOrConnectWithoutDivisionInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutDivisionInput | Prisma.UserUpsertWithWhereUniqueWithoutDivisionInput[]
+  createMany?: Prisma.UserCreateManyDivisionInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutDivisionInput | Prisma.UserUpdateWithWhereUniqueWithoutDivisionInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutDivisionInput | Prisma.UserUpdateManyWithWhereWithoutDivisionInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
 export type UserCreateWithoutAttendancesInput = {
   id?: string
   name: string
@@ -456,6 +532,7 @@ export type UserCreateWithoutAttendancesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  division?: Prisma.DivisionCreateNestedOneWithoutUsersInput
 }
 
 export type UserUncheckedCreateWithoutAttendancesInput = {
@@ -468,6 +545,7 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  divisionId?: string | null
 }
 
 export type UserCreateOrConnectWithoutAttendancesInput = {
@@ -496,9 +574,129 @@ export type UserUpdateWithoutAttendancesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  division?: Prisma.DivisionUpdateOneWithoutUsersNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  divisionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type UserCreateWithoutDivisionInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  token?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDivisionInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  token?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDivisionInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDivisionInput, Prisma.UserUncheckedCreateWithoutDivisionInput>
+}
+
+export type UserCreateManyDivisionInputEnvelope = {
+  data: Prisma.UserCreateManyDivisionInput | Prisma.UserCreateManyDivisionInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserUpsertWithWhereUniqueWithoutDivisionInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDivisionInput, Prisma.UserUncheckedUpdateWithoutDivisionInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDivisionInput, Prisma.UserUncheckedCreateWithoutDivisionInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutDivisionInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDivisionInput, Prisma.UserUncheckedUpdateWithoutDivisionInput>
+}
+
+export type UserUpdateManyWithWhereWithoutDivisionInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutDivisionInput>
+}
+
+export type UserScalarWhereInput = {
+  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  OR?: Prisma.UserScalarWhereInput[]
+  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  id?: Prisma.StringFilter<"User"> | string
+  name?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringFilter<"User"> | string
+  token?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  isActive?: Prisma.BoolFilter<"User"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  divisionId?: Prisma.StringNullableFilter<"User"> | string | null
+}
+
+export type UserCreateManyDivisionInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  token?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type UserUpdateWithoutDivisionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDivisionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutDivisionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -551,7 +749,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  divisionId?: boolean
   attendances?: boolean | Prisma.User$attendancesArgs<ExtArgs>
+  division?: boolean | Prisma.User$divisionArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -567,11 +767,13 @@ export type UserSelectScalar = {
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  divisionId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "token" | "role" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "token" | "role" | "isActive" | "createdAt" | "updatedAt" | "divisionId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attendances?: boolean | Prisma.User$attendancesArgs<ExtArgs>
+  division?: boolean | Prisma.User$divisionArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -579,6 +781,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     attendances: Prisma.$AttendancePayload<ExtArgs>[]
+    division: Prisma.$DivisionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -590,6 +793,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isActive: boolean
     createdAt: Date
     updatedAt: Date
+    divisionId: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -931,6 +1135,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   attendances<T extends Prisma.User$attendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  division<T extends Prisma.User$divisionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$divisionArgs<ExtArgs>>): Prisma.Prisma__DivisionClient<runtime.Types.Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -969,6 +1174,7 @@ export interface UserFieldRefs {
   readonly isActive: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly divisionId: Prisma.FieldRef<"User", 'String'>
 }
     
 
@@ -1333,6 +1539,25 @@ export type User$attendancesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
+}
+
+/**
+ * User.division
+ */
+export type User$divisionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Division
+   */
+  select?: Prisma.DivisionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Division
+   */
+  omit?: Prisma.DivisionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DivisionInclude<ExtArgs> | null
+  where?: Prisma.DivisionWhereInput
 }
 
 /**

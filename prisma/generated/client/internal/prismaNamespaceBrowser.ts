@@ -52,7 +52,8 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Attendance: 'Attendance'
+  Attendance: 'Attendance',
+  Division: 'Division'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,7 +81,8 @@ export const UserScalarFieldEnum = {
   role: 'role',
   isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  divisionId: 'divisionId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -92,11 +94,23 @@ export const AttendanceScalarFieldEnum = {
   attendanceDate: 'attendanceDate',
   checkInAt: 'checkInAt',
   checkOutAt: 'checkOutAt',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
+export const DivisionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DivisionScalarFieldEnum = (typeof DivisionScalarFieldEnum)[keyof typeof DivisionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -120,7 +134,8 @@ export const UserOrderByRelevanceFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
-  token: 'token'
+  token: 'token',
+  divisionId: 'divisionId'
 } as const
 
 export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
@@ -132,4 +147,12 @@ export const AttendanceOrderByRelevanceFieldEnum = {
 } as const
 
 export type AttendanceOrderByRelevanceFieldEnum = (typeof AttendanceOrderByRelevanceFieldEnum)[keyof typeof AttendanceOrderByRelevanceFieldEnum]
+
+
+export const DivisionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type DivisionOrderByRelevanceFieldEnum = (typeof DivisionOrderByRelevanceFieldEnum)[keyof typeof DivisionOrderByRelevanceFieldEnum]
 

@@ -385,7 +385,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Attendance: 'Attendance'
+  Attendance: 'Attendance',
+  Division: 'Division'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "attendance"
+    modelProps: "user" | "attendance" | "division"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -537,6 +538,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Division: {
+      payload: Prisma.$DivisionPayload<ExtArgs>
+      fields: Prisma.DivisionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DivisionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DivisionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DivisionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DivisionPayload>
+        }
+        findFirst: {
+          args: Prisma.DivisionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DivisionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DivisionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DivisionPayload>
+        }
+        findMany: {
+          args: Prisma.DivisionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DivisionPayload>[]
+        }
+        create: {
+          args: Prisma.DivisionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DivisionPayload>
+        }
+        createMany: {
+          args: Prisma.DivisionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.DivisionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DivisionPayload>
+        }
+        update: {
+          args: Prisma.DivisionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DivisionPayload>
+        }
+        deleteMany: {
+          args: Prisma.DivisionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DivisionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.DivisionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DivisionPayload>
+        }
+        aggregate: {
+          args: Prisma.DivisionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDivision>
+        }
+        groupBy: {
+          args: Prisma.DivisionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DivisionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DivisionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DivisionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -585,7 +652,8 @@ export const UserScalarFieldEnum = {
   role: 'role',
   isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  divisionId: 'divisionId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -597,11 +665,23 @@ export const AttendanceScalarFieldEnum = {
   attendanceDate: 'attendanceDate',
   checkInAt: 'checkInAt',
   checkOutAt: 'checkOutAt',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
+export const DivisionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DivisionScalarFieldEnum = (typeof DivisionScalarFieldEnum)[keyof typeof DivisionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -625,7 +705,8 @@ export const UserOrderByRelevanceFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
-  token: 'token'
+  token: 'token',
+  divisionId: 'divisionId'
 } as const
 
 export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
@@ -637,6 +718,14 @@ export const AttendanceOrderByRelevanceFieldEnum = {
 } as const
 
 export type AttendanceOrderByRelevanceFieldEnum = (typeof AttendanceOrderByRelevanceFieldEnum)[keyof typeof AttendanceOrderByRelevanceFieldEnum]
+
+
+export const DivisionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type DivisionOrderByRelevanceFieldEnum = (typeof DivisionOrderByRelevanceFieldEnum)[keyof typeof DivisionOrderByRelevanceFieldEnum]
 
 
 
@@ -670,6 +759,13 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'AttendanceStatus'
+ */
+export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus'>
     
 
 
@@ -760,6 +856,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   attendance?: Prisma.AttendanceOmit
+  division?: Prisma.DivisionOmit
 }
 
 /* Types for Logging */
