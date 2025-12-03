@@ -27,6 +27,7 @@ app.use(
 );
 app.use(express.json());
 
+console.log("Hello");
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/api/security", securityRoutes);
