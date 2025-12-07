@@ -5,9 +5,13 @@
 		"strict": true,
 		"lib": ["esnext"],
 		"esModuleInterop": true,
-		"module": "ESNext",
+		"module": "CommonJS",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
-		"target": "ES2022"
-	}
+		"target": "ES2022",
+		"types": ["node", "jest"],
+		"skipLibCheck": true,
+		"isolatedModules": true
+	},
+	"include": ["src", "tests"]
 }

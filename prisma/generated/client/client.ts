@@ -54,3 +54,8 @@ export type Attendance = Prisma.AttendanceModel
  * 
  */
 export type Division = Prisma.DivisionModel
+/**
+ * Model MealAllowance
+ * 
+ */
+export type MealAllowance = Prisma.MealAllowanceModel

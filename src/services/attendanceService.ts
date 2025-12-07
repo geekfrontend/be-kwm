@@ -115,14 +115,18 @@ export const scanAttendance = async (qr: string): Promise<ScanResult> => {
 	const now = new Date();
 	const todayDate = witaDateOnly(now);
 
-    const add = addWitaOffset;
-    const cut = removeWitaOffset;
-    const cutoffCalc = add(now);
-    cutoffCalc.setUTCHours(8, 0, 0, 0);
-    const cutoffUtc = cut(cutoffCalc);
-    const isOnTime = now <= cutoffUtc;
+	const add = addWitaOffset;
+	const cut = removeWitaOffset;
+	const cutoffCalc = add(now);
+	cutoffCalc.setUTCHours(8, 0, 0, 0);
+	const cutoffUtc = cut(cutoffCalc);
+	const isOnTime = now <= cutoffUtc;
+	const cutoffCalcAllowance = add(now);
+	cutoffCalcAllowance.setUTCHours(8, 1, 0, 0);
+	const cutoffUtcAllowance = cut(cutoffCalcAllowance);
+	const isEligible = now <= cutoffUtcAllowance;
 
-    const result = await prisma.$transaction(async (tx) => {
+	const result = await prisma.$transaction(async (tx) => {
 		const prevOpen = await tx.attendance.findFirst({
 			where: { userId, checkOutAt: null, attendanceDate: { lt: todayDate } },
 			orderBy: { attendanceDate: "desc" },
@@ -148,63 +152,93 @@ export const scanAttendance = async (qr: string): Promise<ScanResult> => {
 			},
 		});
 
-        if (!rec) {
-            const created = await tx.attendance.create({
-                data: {
-                    userId,
-                    attendanceDate: todayDate,
-                    checkInAt: now,
-                    status: isOnTime ? "ONTIME" : "LATE",
-                },
-                select: {
-                    id: true,
-                    userId: true,
-                    attendanceDate: true,
-                    checkInAt: true,
-                    checkOutAt: true,
-                    status: true,
-                    createdAt: true,
-                    updatedAt: true,
-                },
-            });
-            return { mode: "CHECK_IN", attendance: created } as ScanResult;
-        }
+		if (!rec) {
+			const created = await tx.attendance.create({
+				data: {
+					userId,
+					attendanceDate: todayDate,
+					checkInAt: now,
+					status: isOnTime ? "ONTIME" : "LATE",
+				},
+				select: {
+					id: true,
+					userId: true,
+					attendanceDate: true,
+					checkInAt: true,
+					checkOutAt: true,
+					status: true,
+					createdAt: true,
+					updatedAt: true,
+				},
+			});
+			await tx.mealAllowance.upsert({
+				where: { attendanceId: created.id },
+				update: {
+					isEligible,
+					amount: isEligible ? 35000 : 0,
+					isPaid: false,
+					paidAt: null,
+				},
+				create: {
+					attendanceId: created.id,
+					isEligible,
+					amount: isEligible ? 35000 : 0,
+					isPaid: false,
+				},
+			});
+			return { mode: "CHECK_IN", attendance: created } as ScanResult;
+		}
 
-        if (!rec.checkInAt) {
-            const updated = await tx.attendance.update({
-                where: { id: rec.id },
-                data: { checkInAt: now, status: isOnTime ? "ONTIME" : "LATE" },
-                select: {
-                    id: true,
-                    userId: true,
-                    attendanceDate: true,
-                    checkInAt: true,
-                    checkOutAt: true,
-                    status: true,
-                    createdAt: true,
-                    updatedAt: true,
-                },
-            });
-            return { mode: "CHECK_IN", attendance: updated } as ScanResult;
-        }
+		if (!rec.checkInAt) {
+			const updated = await tx.attendance.update({
+				where: { id: rec.id },
+				data: { checkInAt: now, status: isOnTime ? "ONTIME" : "LATE" },
+				select: {
+					id: true,
+					userId: true,
+					attendanceDate: true,
+					checkInAt: true,
+					checkOutAt: true,
+					status: true,
+					createdAt: true,
+					updatedAt: true,
+				},
+			});
+			await tx.mealAllowance.upsert({
+				where: { attendanceId: updated.id },
+				update: {
+					isEligible,
+					amount: isEligible ? 35000 : 0,
+					isPaid: false,
+					paidAt: null,
+				},
+				create: {
+					attendanceId: updated.id,
+					isEligible,
+					amount: isEligible ? 35000 : 0,
+					isPaid: false,
+				},
+			});
+			return { mode: "CHECK_IN", attendance: updated } as ScanResult;
+		}
 
-        if (!rec.checkOutAt) {
-            const updated = await tx.attendance.update({
-                where: { id: rec.id },
-                data: { checkOutAt: now },
-                select: {
-                    id: true,
-                    userId: true,
-                    attendanceDate: true,
-                    checkInAt: true,
-                    checkOutAt: true,
-                    status: true,
-                    createdAt: true,
-                    updatedAt: true,
-                },
-            });
-            return { mode: "CHECK_OUT", attendance: updated } as ScanResult;
-        }
+		if (!rec.checkOutAt) {
+			const updated = await tx.attendance.update({
+				where: { id: rec.id },
+				data: { checkOutAt: now },
+				select: {
+					id: true,
+					userId: true,
+					attendanceDate: true,
+					checkInAt: true,
+					checkOutAt: true,
+					status: true,
+					createdAt: true,
+					updatedAt: true,
+				},
+			});
+			return { mode: "CHECK_OUT", attendance: updated } as ScanResult;
+		}
 
 		const err = new Error("Presensi hari ini lengkap") as Error & {
 			status?: number;
@@ -223,22 +257,22 @@ export const getMyAttendance = async (
 ) => {
 	const skip = (page - 1) * pageSize;
 	const [items, totalItems] = await Promise.all([
-        prisma.attendance.findMany({
-            where: { userId },
-            orderBy: [{ attendanceDate: "desc" }, { createdAt: "desc" }],
-            skip,
-            take: pageSize,
-            select: {
-                id: true,
-                userId: true,
-                attendanceDate: true,
-                checkInAt: true,
-                checkOutAt: true,
-                status: true,
-                createdAt: true,
-                updatedAt: true,
-            },
-        }),
+		prisma.attendance.findMany({
+			where: { userId },
+			orderBy: [{ attendanceDate: "desc" }, { createdAt: "desc" }],
+			skip,
+			take: pageSize,
+			select: {
+				id: true,
+				userId: true,
+				attendanceDate: true,
+				checkInAt: true,
+				checkOutAt: true,
+				status: true,
+				createdAt: true,
+				updatedAt: true,
+			},
+		}),
 		prisma.attendance.count({ where: { userId } }),
 	]);
 	return { items, totalItems };
@@ -253,20 +287,20 @@ export const getTodayAttendance = async (userId: string) => {
 			userId,
 			createdAt: { gte: start, lte: end },
 		},
-        orderBy: { createdAt: "desc" },
-        select: {
-            id: true,
-            userId: true,
-            checkInAt: true,
-            checkOutAt: true,
-            status: true,
-            createdAt: true,
-            updatedAt: true,
-        },
-    });
-    if (!rec) return null;
-    const attendanceDate = witaDateOnly(rec.createdAt);
-    return { ...rec, attendanceDate };
+		orderBy: { createdAt: "desc" },
+		select: {
+			id: true,
+			userId: true,
+			checkInAt: true,
+			checkOutAt: true,
+			status: true,
+			createdAt: true,
+			updatedAt: true,
+		},
+	});
+	if (!rec) return null;
+	const attendanceDate = witaDateOnly(rec.createdAt);
+	return { ...rec, attendanceDate };
 };
 
 export const getTodaySummary = async (cutoffHour = 8, cutoffMinute = 0) => {
@@ -312,4 +346,29 @@ export const getTodaySummary = async (cutoffHour = 8, cutoffMinute = 0) => {
 		}
 	}
 	return { belumCheckIn, onTime, terlambat, totalUsers };
+};
+
+export const getMealAllowanceSummary = async (start: Date, end: Date) => {
+	const items = await prisma.mealAllowance.findMany({
+		where: {
+			isEligible: true,
+			isPaid: false,
+			createdAt: { gte: start, lte: end },
+		},
+		select: { id: true, amount: true },
+	});
+	const total = items.reduce((s, i) => s + i.amount, 0);
+	return { total, count: items.length };
+};
+
+export const markMealAllowancePaid = async (start: Date, end: Date) => {
+	const now = new Date();
+	await prisma.mealAllowance.updateMany({
+		where: {
+			isEligible: true,
+			isPaid: false,
+			createdAt: { gte: start, lte: end },
+		},
+		data: { isPaid: true, paidAt: now },
+	});
 };

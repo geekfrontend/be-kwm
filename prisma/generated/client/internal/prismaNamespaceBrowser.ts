@@ -53,7 +53,8 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Attendance: 'Attendance',
-  Division: 'Division'
+  Division: 'Division',
+  MealAllowance: 'MealAllowance'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -113,6 +114,20 @@ export const DivisionScalarFieldEnum = {
 export type DivisionScalarFieldEnum = (typeof DivisionScalarFieldEnum)[keyof typeof DivisionScalarFieldEnum]
 
 
+export const MealAllowanceScalarFieldEnum = {
+  id: 'id',
+  attendanceId: 'attendanceId',
+  amount: 'amount',
+  isEligible: 'isEligible',
+  isPaid: 'isPaid',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MealAllowanceScalarFieldEnum = (typeof MealAllowanceScalarFieldEnum)[keyof typeof MealAllowanceScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -155,4 +170,12 @@ export const DivisionOrderByRelevanceFieldEnum = {
 } as const
 
 export type DivisionOrderByRelevanceFieldEnum = (typeof DivisionOrderByRelevanceFieldEnum)[keyof typeof DivisionOrderByRelevanceFieldEnum]
+
+
+export const MealAllowanceOrderByRelevanceFieldEnum = {
+  id: 'id',
+  attendanceId: 'attendanceId'
+} as const
+
+export type MealAllowanceOrderByRelevanceFieldEnum = (typeof MealAllowanceOrderByRelevanceFieldEnum)[keyof typeof MealAllowanceOrderByRelevanceFieldEnum]
 

@@ -7,7 +7,9 @@ import {
 	generateQrString,
 	getTodayAttendance,
 	getTodaySummary,
-} from "../services/attendanceService";
+	getMealAllowanceSummary,
+	markMealAllowancePaid,
+} from "../services/attendanceService.js";
 
 export const scan = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -116,6 +118,60 @@ export const dashboardSummary = async (
 	try {
 		const summary = await getTodaySummary();
 		sendSuccess(res, summary, "Ringkasan presensi hari ini berhasil diambil");
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const allowanceSummary = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const startRaw = (req.query.start as string) ?? "";
+		const endRaw = (req.query.end as string) ?? "";
+		let start: Date;
+		let end: Date;
+		if (startRaw && endRaw) {
+			start = new Date(startRaw);
+			end = new Date(endRaw);
+		} else {
+			const now = new Date();
+			end = now;
+			start = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+		}
+		const { total, count } = await getMealAllowanceSummary(start, end);
+		sendSuccess(res, { total, count, start, end }, "Ringkasan tunjangan makan");
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const markAllowancePaid = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const startRaw =
+			(req.body.start as string) ?? (req.query.start as string) ?? "";
+		const endRaw = (req.body.end as string) ?? (req.query.end as string) ?? "";
+		if (!startRaw || !endRaw) {
+			const err = new Error("Parameter periode tidak lengkap") as Error & {
+				status?: number;
+			};
+			err.status = 400;
+			throw err;
+		}
+		const start = new Date(startRaw);
+		const end = new Date(endRaw);
+		await markMealAllowancePaid(start, end);
+		sendSuccess(res, {
+			message: "Tunjangan makan ditandai sudah dibayar",
+			start,
+			end,
+		});
 	} catch (error) {
 		next(error);
 	}

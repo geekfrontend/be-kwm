@@ -13,6 +13,11 @@ enum Role {
   EMPLOYEE
 }
 
+enum AttendanceStatus {
+  ONTIME
+  LATE
+}
+
 model User {
   id          String       @id @default(cuid())
   name        String
@@ -32,27 +37,24 @@ model User {
 }
 
 model Attendance {
-  id             String   @id @default(cuid())
-  userId         String   @map("user_id")
-  attendanceDate DateTime @map("attendance_date") @db.Date
+  id             String             @id @default(cuid())
+  userId         String             @map("user_id")
+  attendanceDate DateTime           @map("attendance_date") @db.Date
 
-  checkInAt  DateTime?         @map("check_in_at")
-  checkOutAt DateTime?         @map("check_out_at")
-  status     AttendanceStatus? @map("status")
+  checkInAt      DateTime?          @map("check_in_at")
+  checkOutAt     DateTime?          @map("check_out_at")
+  status         AttendanceStatus?  @map("status")
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
 
-  user User @relation(fields: [userId], references: [id])
+  user           User               @relation(fields: [userId], references: [id])
+
+  mealAllowance  MealAllowance?
 
   @@unique([userId, attendanceDate])
   @@index([userId])
   @@map("attendances")
-}
-
-enum AttendanceStatus {
-  ONTIME
-  LATE
 }
 
 model Division {
@@ -64,4 +66,21 @@ model Division {
   users       User[]
 
   @@map("divisions")
+}
+
+model MealAllowance {
+  id           String     @id @default(cuid())
+  attendanceId String     @unique @map("attendance_id") 
+
+  amount       Int        @map("amount")                 
+  isEligible   Boolean    @default(true) @map("is_eligible")
+  isPaid       Boolean    @default(false) @map("is_paid")
+  paidAt       DateTime?  @map("paid_at")
+
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  attendance   Attendance @relation(fields: [attendanceId], references: [id])
+
+  @@map("meal_allowances")
 }

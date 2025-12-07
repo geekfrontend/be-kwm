@@ -207,6 +207,7 @@ export type AttendanceWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  mealAllowance?: Prisma.XOR<Prisma.MealAllowanceNullableScalarRelationFilter, Prisma.MealAllowanceWhereInput> | null
 }
 
 export type AttendanceOrderByWithRelationInput = {
@@ -219,6 +220,7 @@ export type AttendanceOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  mealAllowance?: Prisma.MealAllowanceOrderByWithRelationInput
   _relevance?: Prisma.AttendanceOrderByRelevanceInput
 }
 
@@ -236,6 +238,7 @@ export type AttendanceWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  mealAllowance?: Prisma.XOR<Prisma.MealAllowanceNullableScalarRelationFilter, Prisma.MealAllowanceWhereInput> | null
 }, "id" | "userId_attendanceDate">
 
 export type AttendanceOrderByWithAggregationInput = {
@@ -275,6 +278,7 @@ export type AttendanceCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutAttendancesInput
+  mealAllowance?: Prisma.MealAllowanceCreateNestedOneWithoutAttendanceInput
 }
 
 export type AttendanceUncheckedCreateInput = {
@@ -286,6 +290,7 @@ export type AttendanceUncheckedCreateInput = {
   status?: $Enums.AttendanceStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mealAllowance?: Prisma.MealAllowanceUncheckedCreateNestedOneWithoutAttendanceInput
 }
 
 export type AttendanceUpdateInput = {
@@ -297,6 +302,7 @@ export type AttendanceUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutAttendancesNestedInput
+  mealAllowance?: Prisma.MealAllowanceUpdateOneWithoutAttendanceNestedInput
 }
 
 export type AttendanceUncheckedUpdateInput = {
@@ -308,6 +314,7 @@ export type AttendanceUncheckedUpdateInput = {
   status?: Prisma.NullableEnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mealAllowance?: Prisma.MealAllowanceUncheckedUpdateOneWithoutAttendanceNestedInput
 }
 
 export type AttendanceCreateManyInput = {
@@ -396,6 +403,11 @@ export type AttendanceMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type AttendanceScalarRelationFilter = {
+  is?: Prisma.AttendanceWhereInput
+  isNot?: Prisma.AttendanceWhereInput
+}
+
 export type AttendanceCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.AttendanceCreateWithoutUserInput, Prisma.AttendanceUncheckedCreateWithoutUserInput> | Prisma.AttendanceCreateWithoutUserInput[] | Prisma.AttendanceUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.AttendanceCreateOrConnectWithoutUserInput | Prisma.AttendanceCreateOrConnectWithoutUserInput[]
@@ -446,6 +458,20 @@ export type NullableEnumAttendanceStatusFieldUpdateOperationsInput = {
   set?: $Enums.AttendanceStatus | null
 }
 
+export type AttendanceCreateNestedOneWithoutMealAllowanceInput = {
+  create?: Prisma.XOR<Prisma.AttendanceCreateWithoutMealAllowanceInput, Prisma.AttendanceUncheckedCreateWithoutMealAllowanceInput>
+  connectOrCreate?: Prisma.AttendanceCreateOrConnectWithoutMealAllowanceInput
+  connect?: Prisma.AttendanceWhereUniqueInput
+}
+
+export type AttendanceUpdateOneRequiredWithoutMealAllowanceNestedInput = {
+  create?: Prisma.XOR<Prisma.AttendanceCreateWithoutMealAllowanceInput, Prisma.AttendanceUncheckedCreateWithoutMealAllowanceInput>
+  connectOrCreate?: Prisma.AttendanceCreateOrConnectWithoutMealAllowanceInput
+  upsert?: Prisma.AttendanceUpsertWithoutMealAllowanceInput
+  connect?: Prisma.AttendanceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AttendanceUpdateToOneWithWhereWithoutMealAllowanceInput, Prisma.AttendanceUpdateWithoutMealAllowanceInput>, Prisma.AttendanceUncheckedUpdateWithoutMealAllowanceInput>
+}
+
 export type AttendanceCreateWithoutUserInput = {
   id?: string
   attendanceDate: Date | string
@@ -454,6 +480,7 @@ export type AttendanceCreateWithoutUserInput = {
   status?: $Enums.AttendanceStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mealAllowance?: Prisma.MealAllowanceCreateNestedOneWithoutAttendanceInput
 }
 
 export type AttendanceUncheckedCreateWithoutUserInput = {
@@ -464,6 +491,7 @@ export type AttendanceUncheckedCreateWithoutUserInput = {
   status?: $Enums.AttendanceStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mealAllowance?: Prisma.MealAllowanceUncheckedCreateNestedOneWithoutAttendanceInput
 }
 
 export type AttendanceCreateOrConnectWithoutUserInput = {
@@ -506,6 +534,66 @@ export type AttendanceScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
 }
 
+export type AttendanceCreateWithoutMealAllowanceInput = {
+  id?: string
+  attendanceDate: Date | string
+  checkInAt?: Date | string | null
+  checkOutAt?: Date | string | null
+  status?: $Enums.AttendanceStatus | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutAttendancesInput
+}
+
+export type AttendanceUncheckedCreateWithoutMealAllowanceInput = {
+  id?: string
+  userId: string
+  attendanceDate: Date | string
+  checkInAt?: Date | string | null
+  checkOutAt?: Date | string | null
+  status?: $Enums.AttendanceStatus | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AttendanceCreateOrConnectWithoutMealAllowanceInput = {
+  where: Prisma.AttendanceWhereUniqueInput
+  create: Prisma.XOR<Prisma.AttendanceCreateWithoutMealAllowanceInput, Prisma.AttendanceUncheckedCreateWithoutMealAllowanceInput>
+}
+
+export type AttendanceUpsertWithoutMealAllowanceInput = {
+  update: Prisma.XOR<Prisma.AttendanceUpdateWithoutMealAllowanceInput, Prisma.AttendanceUncheckedUpdateWithoutMealAllowanceInput>
+  create: Prisma.XOR<Prisma.AttendanceCreateWithoutMealAllowanceInput, Prisma.AttendanceUncheckedCreateWithoutMealAllowanceInput>
+  where?: Prisma.AttendanceWhereInput
+}
+
+export type AttendanceUpdateToOneWithWhereWithoutMealAllowanceInput = {
+  where?: Prisma.AttendanceWhereInput
+  data: Prisma.XOR<Prisma.AttendanceUpdateWithoutMealAllowanceInput, Prisma.AttendanceUncheckedUpdateWithoutMealAllowanceInput>
+}
+
+export type AttendanceUpdateWithoutMealAllowanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  attendanceDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkInAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkOutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.NullableEnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutAttendancesNestedInput
+}
+
+export type AttendanceUncheckedUpdateWithoutMealAllowanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  attendanceDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkInAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  checkOutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.NullableEnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type AttendanceCreateManyUserInput = {
   id?: string
   attendanceDate: Date | string
@@ -524,6 +612,7 @@ export type AttendanceUpdateWithoutUserInput = {
   status?: Prisma.NullableEnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mealAllowance?: Prisma.MealAllowanceUpdateOneWithoutAttendanceNestedInput
 }
 
 export type AttendanceUncheckedUpdateWithoutUserInput = {
@@ -534,6 +623,7 @@ export type AttendanceUncheckedUpdateWithoutUserInput = {
   status?: Prisma.NullableEnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mealAllowance?: Prisma.MealAllowanceUncheckedUpdateOneWithoutAttendanceNestedInput
 }
 
 export type AttendanceUncheckedUpdateManyWithoutUserInput = {
@@ -558,6 +648,7 @@ export type AttendanceSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  mealAllowance?: boolean | Prisma.Attendance$mealAllowanceArgs<ExtArgs>
 }, ExtArgs["result"]["attendance"]>
 
 
@@ -576,12 +667,14 @@ export type AttendanceSelectScalar = {
 export type AttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "attendanceDate" | "checkInAt" | "checkOutAt" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["attendance"]>
 export type AttendanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  mealAllowance?: boolean | Prisma.Attendance$mealAllowanceArgs<ExtArgs>
 }
 
 export type $AttendancePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Attendance"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    mealAllowance: Prisma.$MealAllowancePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -933,6 +1026,7 @@ readonly fields: AttendanceFieldRefs;
 export interface Prisma__AttendanceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  mealAllowance<T extends Prisma.Attendance$mealAllowanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Attendance$mealAllowanceArgs<ExtArgs>>): Prisma.Prisma__MealAllowanceClient<runtime.Types.Result.GetResult<Prisma.$MealAllowancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1310,6 +1404,25 @@ export type AttendanceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many Attendances to delete.
    */
   limit?: number
+}
+
+/**
+ * Attendance.mealAllowance
+ */
+export type Attendance$mealAllowanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MealAllowance
+   */
+  select?: Prisma.MealAllowanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MealAllowance
+   */
+  omit?: Prisma.MealAllowanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MealAllowanceInclude<ExtArgs> | null
+  where?: Prisma.MealAllowanceWhereInput
 }
 
 /**

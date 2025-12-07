@@ -386,7 +386,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Attendance: 'Attendance',
-  Division: 'Division'
+  Division: 'Division',
+  MealAllowance: 'MealAllowance'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "attendance" | "division"
+    modelProps: "user" | "attendance" | "division" | "mealAllowance"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -604,6 +605,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MealAllowance: {
+      payload: Prisma.$MealAllowancePayload<ExtArgs>
+      fields: Prisma.MealAllowanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MealAllowanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MealAllowancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MealAllowanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MealAllowancePayload>
+        }
+        findFirst: {
+          args: Prisma.MealAllowanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MealAllowancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MealAllowanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MealAllowancePayload>
+        }
+        findMany: {
+          args: Prisma.MealAllowanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MealAllowancePayload>[]
+        }
+        create: {
+          args: Prisma.MealAllowanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MealAllowancePayload>
+        }
+        createMany: {
+          args: Prisma.MealAllowanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.MealAllowanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MealAllowancePayload>
+        }
+        update: {
+          args: Prisma.MealAllowanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MealAllowancePayload>
+        }
+        deleteMany: {
+          args: Prisma.MealAllowanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MealAllowanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.MealAllowanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MealAllowancePayload>
+        }
+        aggregate: {
+          args: Prisma.MealAllowanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMealAllowance>
+        }
+        groupBy: {
+          args: Prisma.MealAllowanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MealAllowanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MealAllowanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MealAllowanceCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -684,6 +751,20 @@ export const DivisionScalarFieldEnum = {
 export type DivisionScalarFieldEnum = (typeof DivisionScalarFieldEnum)[keyof typeof DivisionScalarFieldEnum]
 
 
+export const MealAllowanceScalarFieldEnum = {
+  id: 'id',
+  attendanceId: 'attendanceId',
+  amount: 'amount',
+  isEligible: 'isEligible',
+  isPaid: 'isPaid',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MealAllowanceScalarFieldEnum = (typeof MealAllowanceScalarFieldEnum)[keyof typeof MealAllowanceScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -726,6 +807,14 @@ export const DivisionOrderByRelevanceFieldEnum = {
 } as const
 
 export type DivisionOrderByRelevanceFieldEnum = (typeof DivisionOrderByRelevanceFieldEnum)[keyof typeof DivisionOrderByRelevanceFieldEnum]
+
+
+export const MealAllowanceOrderByRelevanceFieldEnum = {
+  id: 'id',
+  attendanceId: 'attendanceId'
+} as const
+
+export type MealAllowanceOrderByRelevanceFieldEnum = (typeof MealAllowanceOrderByRelevanceFieldEnum)[keyof typeof MealAllowanceOrderByRelevanceFieldEnum]
 
 
 
@@ -773,6 +862,13 @@ export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 /**
@@ -857,6 +953,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   attendance?: Prisma.AttendanceOmit
   division?: Prisma.DivisionOmit
+  mealAllowance?: Prisma.MealAllowanceOmit
 }
 
 /* Types for Logging */
