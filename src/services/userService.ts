@@ -2,16 +2,43 @@ import prisma from "../lib/prisma";
 import type { Prisma } from "../../prisma/generated/client/client";
 import bcrypt from "bcryptjs";
 
+// const userSelect = {
+// 	id: true,
+// 	name: true,
+// 	email: true,
+// 	role: true,
+// 	isActive: true,
+// 	division: { select: { id: true, name: true } },
+// 	createdAt: true,
+// 	updatedAt: true,
+// };
+
+
+
 const userSelect = {
-	id: true,
-	name: true,
-	email: true,
-	role: true,
-	isActive: true,
-	division: { select: { id: true, name: true } },
-	createdAt: true,
-	updatedAt: true,
+  id: true,
+  name: true,
+  email: true,
+  role: true,
+  isActive: true,
+  division: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+  ttl: true,
+  address: true,
+  education: true,
+  startWorkDate: true,
+  position: true,
+  nik: true,
+  bpjsTk: true,
+  bpjsKes: true,
+  createdAt: true,
+  updatedAt: true,
 };
+
 
 export const createUser = async (data: Prisma.UserUncheckedCreateInput) => {
 	const hashedPassword = await bcrypt.hash(data.password, 10);

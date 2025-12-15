@@ -38,8 +38,6 @@ router.put(
 );
 router.delete(
 	"/:id",
-	authenticateToken,
-	authorizeRole("ADMIN"),
 	userController.deleteUser,
 );
 

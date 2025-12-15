@@ -9,21 +9,23 @@ import divisionRoutes from "./routes/divisionRoutes";
 import { errorHandler } from "./middlewares/errorMiddleware";
 
 if (!process.env.JWT_SECRET) {
-	throw new Error("JWT_SECRET is not defined");
+  throw new Error("JWT_SECRET is not defined");
 }
 
 const app = express();
 
-const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:3000")
-	.split(",")
-	.map((s) => s.trim())
-	.filter(Boolean);
+const allowedOrigins = (
+  process.env.CORS_ORIGINS || "http://localhost:3000,http://192.168.1.43:3000"
+)
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
 
 app.use(
-	cors({
-		origin: allowedOrigins,
-		credentials: true,
-	}),
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
 );
 app.use(express.json());
 

@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model User
@@ -32,6 +32,14 @@ export type UserMinAggregateOutputType = {
   token: string | null
   role: $Enums.Role | null
   isActive: boolean | null
+  ttl: string | null
+  address: string | null
+  education: string | null
+  startWorkDate: string | null
+  position: string | null
+  nik: string | null
+  bpjsTk: string | null
+  bpjsKes: string | null
   createdAt: Date | null
   updatedAt: Date | null
   divisionId: string | null
@@ -45,6 +53,14 @@ export type UserMaxAggregateOutputType = {
   token: string | null
   role: $Enums.Role | null
   isActive: boolean | null
+  ttl: string | null
+  address: string | null
+  education: string | null
+  startWorkDate: string | null
+  position: string | null
+  nik: string | null
+  bpjsTk: string | null
+  bpjsKes: string | null
   createdAt: Date | null
   updatedAt: Date | null
   divisionId: string | null
@@ -58,6 +74,14 @@ export type UserCountAggregateOutputType = {
   token: number
   role: number
   isActive: number
+  ttl: number
+  address: number
+  education: number
+  startWorkDate: number
+  position: number
+  nik: number
+  bpjsTk: number
+  bpjsKes: number
   createdAt: number
   updatedAt: number
   divisionId: number
@@ -73,6 +97,14 @@ export type UserMinAggregateInputType = {
   token?: true
   role?: true
   isActive?: true
+  ttl?: true
+  address?: true
+  education?: true
+  startWorkDate?: true
+  position?: true
+  nik?: true
+  bpjsTk?: true
+  bpjsKes?: true
   createdAt?: true
   updatedAt?: true
   divisionId?: true
@@ -86,6 +118,14 @@ export type UserMaxAggregateInputType = {
   token?: true
   role?: true
   isActive?: true
+  ttl?: true
+  address?: true
+  education?: true
+  startWorkDate?: true
+  position?: true
+  nik?: true
+  bpjsTk?: true
+  bpjsKes?: true
   createdAt?: true
   updatedAt?: true
   divisionId?: true
@@ -99,6 +139,14 @@ export type UserCountAggregateInputType = {
   token?: true
   role?: true
   isActive?: true
+  ttl?: true
+  address?: true
+  education?: true
+  startWorkDate?: true
+  position?: true
+  nik?: true
+  bpjsTk?: true
+  bpjsKes?: true
   createdAt?: true
   updatedAt?: true
   divisionId?: true
@@ -185,6 +233,14 @@ export type UserGroupByOutputType = {
   token: string | null
   role: $Enums.Role
   isActive: boolean
+  ttl: string | null
+  address: string | null
+  education: string | null
+  startWorkDate: string | null
+  position: string | null
+  nik: string | null
+  bpjsTk: string | null
+  bpjsKes: string | null
   createdAt: Date
   updatedAt: Date
   divisionId: string | null
@@ -219,6 +275,14 @@ export type UserWhereInput = {
   token?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isActive?: Prisma.BoolFilter<"User"> | boolean
+  ttl?: Prisma.StringNullableFilter<"User"> | string | null
+  address?: Prisma.StringNullableFilter<"User"> | string | null
+  education?: Prisma.StringNullableFilter<"User"> | string | null
+  startWorkDate?: Prisma.StringNullableFilter<"User"> | string | null
+  position?: Prisma.StringNullableFilter<"User"> | string | null
+  nik?: Prisma.StringNullableFilter<"User"> | string | null
+  bpjsTk?: Prisma.StringNullableFilter<"User"> | string | null
+  bpjsKes?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   divisionId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -234,6 +298,14 @@ export type UserOrderByWithRelationInput = {
   token?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  ttl?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  education?: Prisma.SortOrderInput | Prisma.SortOrder
+  startWorkDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  position?: Prisma.SortOrderInput | Prisma.SortOrder
+  nik?: Prisma.SortOrderInput | Prisma.SortOrder
+  bpjsTk?: Prisma.SortOrderInput | Prisma.SortOrder
+  bpjsKes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   divisionId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -253,6 +325,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   token?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isActive?: Prisma.BoolFilter<"User"> | boolean
+  ttl?: Prisma.StringNullableFilter<"User"> | string | null
+  address?: Prisma.StringNullableFilter<"User"> | string | null
+  education?: Prisma.StringNullableFilter<"User"> | string | null
+  startWorkDate?: Prisma.StringNullableFilter<"User"> | string | null
+  position?: Prisma.StringNullableFilter<"User"> | string | null
+  nik?: Prisma.StringNullableFilter<"User"> | string | null
+  bpjsTk?: Prisma.StringNullableFilter<"User"> | string | null
+  bpjsKes?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   divisionId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -268,6 +348,14 @@ export type UserOrderByWithAggregationInput = {
   token?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  ttl?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  education?: Prisma.SortOrderInput | Prisma.SortOrder
+  startWorkDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  position?: Prisma.SortOrderInput | Prisma.SortOrder
+  nik?: Prisma.SortOrderInput | Prisma.SortOrder
+  bpjsTk?: Prisma.SortOrderInput | Prisma.SortOrder
+  bpjsKes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   divisionId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -287,6 +375,14 @@ export type UserScalarWhereWithAggregatesInput = {
   token?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  ttl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  education?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  startWorkDate?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  position?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  nik?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  bpjsTk?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  bpjsKes?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   divisionId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -300,6 +396,14 @@ export type UserCreateInput = {
   token?: string | null
   role?: $Enums.Role
   isActive?: boolean
+  ttl?: string | null
+  address?: string | null
+  education?: string | null
+  startWorkDate?: string | null
+  position?: string | null
+  nik?: string | null
+  bpjsTk?: string | null
+  bpjsKes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
@@ -314,6 +418,14 @@ export type UserUncheckedCreateInput = {
   token?: string | null
   role?: $Enums.Role
   isActive?: boolean
+  ttl?: string | null
+  address?: string | null
+  education?: string | null
+  startWorkDate?: string | null
+  position?: string | null
+  nik?: string | null
+  bpjsTk?: string | null
+  bpjsKes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   divisionId?: string | null
@@ -328,6 +440,14 @@ export type UserUpdateInput = {
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ttl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  education?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startWorkDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsTk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsKes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
@@ -342,6 +462,14 @@ export type UserUncheckedUpdateInput = {
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ttl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  education?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startWorkDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsTk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsKes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   divisionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -356,6 +484,14 @@ export type UserCreateManyInput = {
   token?: string | null
   role?: $Enums.Role
   isActive?: boolean
+  ttl?: string | null
+  address?: string | null
+  education?: string | null
+  startWorkDate?: string | null
+  position?: string | null
+  nik?: string | null
+  bpjsTk?: string | null
+  bpjsKes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   divisionId?: string | null
@@ -369,6 +505,14 @@ export type UserUpdateManyMutationInput = {
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ttl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  education?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startWorkDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsTk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsKes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -381,6 +525,14 @@ export type UserUncheckedUpdateManyInput = {
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ttl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  education?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startWorkDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsTk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsKes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   divisionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -400,6 +552,14 @@ export type UserCountOrderByAggregateInput = {
   token?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  ttl?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  education?: Prisma.SortOrder
+  startWorkDate?: Prisma.SortOrder
+  position?: Prisma.SortOrder
+  nik?: Prisma.SortOrder
+  bpjsTk?: Prisma.SortOrder
+  bpjsKes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   divisionId?: Prisma.SortOrder
@@ -413,6 +573,14 @@ export type UserMaxOrderByAggregateInput = {
   token?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  ttl?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  education?: Prisma.SortOrder
+  startWorkDate?: Prisma.SortOrder
+  position?: Prisma.SortOrder
+  nik?: Prisma.SortOrder
+  bpjsTk?: Prisma.SortOrder
+  bpjsKes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   divisionId?: Prisma.SortOrder
@@ -426,6 +594,14 @@ export type UserMinOrderByAggregateInput = {
   token?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  ttl?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  education?: Prisma.SortOrder
+  startWorkDate?: Prisma.SortOrder
+  position?: Prisma.SortOrder
+  nik?: Prisma.SortOrder
+  bpjsTk?: Prisma.SortOrder
+  bpjsKes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   divisionId?: Prisma.SortOrder
@@ -530,6 +706,14 @@ export type UserCreateWithoutAttendancesInput = {
   token?: string | null
   role?: $Enums.Role
   isActive?: boolean
+  ttl?: string | null
+  address?: string | null
+  education?: string | null
+  startWorkDate?: string | null
+  position?: string | null
+  nik?: string | null
+  bpjsTk?: string | null
+  bpjsKes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   division?: Prisma.DivisionCreateNestedOneWithoutUsersInput
@@ -543,6 +727,14 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   token?: string | null
   role?: $Enums.Role
   isActive?: boolean
+  ttl?: string | null
+  address?: string | null
+  education?: string | null
+  startWorkDate?: string | null
+  position?: string | null
+  nik?: string | null
+  bpjsTk?: string | null
+  bpjsKes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   divisionId?: string | null
@@ -572,6 +764,14 @@ export type UserUpdateWithoutAttendancesInput = {
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ttl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  education?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startWorkDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsTk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsKes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   division?: Prisma.DivisionUpdateOneWithoutUsersNestedInput
@@ -585,6 +785,14 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ttl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  education?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startWorkDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsTk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsKes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   divisionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -598,6 +806,14 @@ export type UserCreateWithoutDivisionInput = {
   token?: string | null
   role?: $Enums.Role
   isActive?: boolean
+  ttl?: string | null
+  address?: string | null
+  education?: string | null
+  startWorkDate?: string | null
+  position?: string | null
+  nik?: string | null
+  bpjsTk?: string | null
+  bpjsKes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   attendances?: Prisma.AttendanceCreateNestedManyWithoutUserInput
@@ -611,6 +827,14 @@ export type UserUncheckedCreateWithoutDivisionInput = {
   token?: string | null
   role?: $Enums.Role
   isActive?: boolean
+  ttl?: string | null
+  address?: string | null
+  education?: string | null
+  startWorkDate?: string | null
+  position?: string | null
+  nik?: string | null
+  bpjsTk?: string | null
+  bpjsKes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutUserInput
@@ -653,6 +877,14 @@ export type UserScalarWhereInput = {
   token?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isActive?: Prisma.BoolFilter<"User"> | boolean
+  ttl?: Prisma.StringNullableFilter<"User"> | string | null
+  address?: Prisma.StringNullableFilter<"User"> | string | null
+  education?: Prisma.StringNullableFilter<"User"> | string | null
+  startWorkDate?: Prisma.StringNullableFilter<"User"> | string | null
+  position?: Prisma.StringNullableFilter<"User"> | string | null
+  nik?: Prisma.StringNullableFilter<"User"> | string | null
+  bpjsTk?: Prisma.StringNullableFilter<"User"> | string | null
+  bpjsKes?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   divisionId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -666,6 +898,14 @@ export type UserCreateManyDivisionInput = {
   token?: string | null
   role?: $Enums.Role
   isActive?: boolean
+  ttl?: string | null
+  address?: string | null
+  education?: string | null
+  startWorkDate?: string | null
+  position?: string | null
+  nik?: string | null
+  bpjsTk?: string | null
+  bpjsKes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -678,6 +918,14 @@ export type UserUpdateWithoutDivisionInput = {
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ttl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  education?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startWorkDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsTk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsKes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendances?: Prisma.AttendanceUpdateManyWithoutUserNestedInput
@@ -691,6 +939,14 @@ export type UserUncheckedUpdateWithoutDivisionInput = {
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ttl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  education?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startWorkDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsTk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsKes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutUserNestedInput
@@ -704,6 +960,14 @@ export type UserUncheckedUpdateManyWithoutDivisionInput = {
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ttl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  education?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startWorkDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsTk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bpjsKes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -747,6 +1011,14 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   token?: boolean
   role?: boolean
   isActive?: boolean
+  ttl?: boolean
+  address?: boolean
+  education?: boolean
+  startWorkDate?: boolean
+  position?: boolean
+  nik?: boolean
+  bpjsTk?: boolean
+  bpjsKes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   divisionId?: boolean
@@ -765,12 +1037,20 @@ export type UserSelectScalar = {
   token?: boolean
   role?: boolean
   isActive?: boolean
+  ttl?: boolean
+  address?: boolean
+  education?: boolean
+  startWorkDate?: boolean
+  position?: boolean
+  nik?: boolean
+  bpjsTk?: boolean
+  bpjsKes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   divisionId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "token" | "role" | "isActive" | "createdAt" | "updatedAt" | "divisionId", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "token" | "role" | "isActive" | "ttl" | "address" | "education" | "startWorkDate" | "position" | "nik" | "bpjsTk" | "bpjsKes" | "createdAt" | "updatedAt" | "divisionId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attendances?: boolean | Prisma.User$attendancesArgs<ExtArgs>
   division?: boolean | Prisma.User$divisionArgs<ExtArgs>
@@ -791,6 +1071,14 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     token: string | null
     role: $Enums.Role
     isActive: boolean
+    ttl: string | null
+    address: string | null
+    education: string | null
+    startWorkDate: string | null
+    position: string | null
+    nik: string | null
+    bpjsTk: string | null
+    bpjsKes: string | null
     createdAt: Date
     updatedAt: Date
     divisionId: string | null
@@ -1172,6 +1460,14 @@ export interface UserFieldRefs {
   readonly token: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly isActive: Prisma.FieldRef<"User", 'Boolean'>
+  readonly ttl: Prisma.FieldRef<"User", 'String'>
+  readonly address: Prisma.FieldRef<"User", 'String'>
+  readonly education: Prisma.FieldRef<"User", 'String'>
+  readonly startWorkDate: Prisma.FieldRef<"User", 'String'>
+  readonly position: Prisma.FieldRef<"User", 'String'>
+  readonly nik: Prisma.FieldRef<"User", 'String'>
+  readonly bpjsTk: Prisma.FieldRef<"User", 'String'>
+  readonly bpjsKes: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly divisionId: Prisma.FieldRef<"User", 'String'>

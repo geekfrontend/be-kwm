@@ -19,22 +19,33 @@ enum AttendanceStatus {
 }
 
 model User {
-  id          String       @id @default(cuid())
-  name        String
-  email       String       @unique
-  password    String
-  token       String?      @db.Text
-  role        Role         @default(EMPLOYEE)
-  isActive    Boolean      @default(true) @map("is_active")
-  createdAt   DateTime     @default(now()) @map("created_at")
-  updatedAt   DateTime     @updatedAt @map("updated_at")
-  attendances Attendance[]
-  divisionId  String?      @map("division_id")
-  division    Division?    @relation(fields: [divisionId], references: [id], onDelete: SetNull)
+  id            String       @id @default(cuid())
+  name          String
+  email         String       @unique
+  password      String
+  token         String?      @db.Text
+  role          Role         @default(EMPLOYEE)
+  isActive      Boolean      @default(true) @map("is_active")
+  ttl           String?      
+  address       String?      @db.Text
+  education     String? 
+  startWorkDate String?      @map("start_work_date")
+  position      String?
+  nik           String?
+  bpjsTk        String?      @map("bpjs_tk")
+  bpjsKes       String?      @map("bpjs_kes")
+
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  attendances   Attendance[]
+  divisionId    String?      @map("division_id")
+  division      Division?    @relation(fields: [divisionId], references: [id], onDelete: SetNull)
 
   @@index([divisionId])
   @@map("users")
 }
+
 
 model Attendance {
   id             String             @id @default(cuid())
