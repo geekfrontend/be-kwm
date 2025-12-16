@@ -12,7 +12,7 @@ import bcrypt from "bcryptjs";
 // 	createdAt: true,
 // 	updatedAt: true,
 // };
-
+ 
 
 
 const userSelect = {
@@ -27,7 +27,9 @@ const userSelect = {
       name: true,
     },
   },
+  ketStatus: true,
   ttl: true,
+  noHp: true,
   address: true,
   education: true,
   startWorkDate: true,
@@ -65,36 +67,58 @@ export const getUserById = async (id: string) => {
 	});
 };
 
-export const getUserByEmail = async (email: string) => {
+export const getUserByNoHp = async (noHp: string) => {
 	return await prisma.user.findUnique({
-		where: { email },
+		where: { noHp },
 		// Need password for login check, so we don't use userSelect here usually,
 		// but this function might be used for other things.
 		// For login, we need the password.
 		// Let's create a specific function for login if needed, or just return everything here and handle it in authService.
 		// authService calls this. So we must return password.
-	});
+	}); 
 };
 
 export const updateUser = async (
-	id: string,
-	data: Prisma.UserUncheckedUpdateInput,
+  id: string,
+  data: Prisma.UserUncheckedUpdateInput,
 ) => {
-	if (typeof data.password === "string") {
-		data.password = await bcrypt.hash(data.password, 10);
-	} else if (
-		data.password &&
-		"set" in data.password &&
-		typeof data.password.set === "string"
-	) {
-		data.password = { set: await bcrypt.hash(data.password.set, 10) };
-	}
-	return await prisma.user.update({
-		where: { id },
-		data,
-		select: userSelect,
-	});
+  // Hash password jika ada
+  if (typeof data.password === "string") {
+    data.password = await bcrypt.hash(data.password, 10);
+  } else if (
+    data.password &&
+    typeof data.password === "object" &&
+    "set" in data.password &&
+    typeof data.password.set === "string"
+  ) {
+    data.password = { set: await bcrypt.hash(data.password.set, 10) };
+  }
+
+  const existingUser = await prisma.user.findUnique({
+    where: { id },
+    select: { isActive: true },
+  });
+
+  if (!existingUser) {
+    throw new Error("User not found");
+  }
+
+  const isActivating =
+    existingUser.isActive === false &&
+    (data.isActive === true ||
+      (typeof data.isActive === "object" && data.isActive?.set === true));
+
+  if (isActivating) {
+    data.ketStatus = null;
+  }
+
+  return prisma.user.update({
+    where: { id },
+    data,
+    select: userSelect,
+  });
 };
+
 
 export const deleteUser = async (id: string) => {
 	return await prisma.user.delete({

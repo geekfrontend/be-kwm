@@ -28,6 +28,7 @@ export type DivisionMinAggregateOutputType = {
   id: string | null
   name: string | null
   isActive: boolean | null
+  keterangan: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -36,6 +37,7 @@ export type DivisionMaxAggregateOutputType = {
   id: string | null
   name: string | null
   isActive: boolean | null
+  keterangan: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +46,7 @@ export type DivisionCountAggregateOutputType = {
   id: number
   name: number
   isActive: number
+  keterangan: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -54,6 +57,7 @@ export type DivisionMinAggregateInputType = {
   id?: true
   name?: true
   isActive?: true
+  keterangan?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -62,6 +66,7 @@ export type DivisionMaxAggregateInputType = {
   id?: true
   name?: true
   isActive?: true
+  keterangan?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -70,6 +75,7 @@ export type DivisionCountAggregateInputType = {
   id?: true
   name?: true
   isActive?: true
+  keterangan?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -151,6 +157,7 @@ export type DivisionGroupByOutputType = {
   id: string
   name: string
   isActive: boolean
+  keterangan: string | null
   createdAt: Date
   updatedAt: Date
   _count: DivisionCountAggregateOutputType | null
@@ -180,6 +187,7 @@ export type DivisionWhereInput = {
   id?: Prisma.StringFilter<"Division"> | string
   name?: Prisma.StringFilter<"Division"> | string
   isActive?: Prisma.BoolFilter<"Division"> | boolean
+  keterangan?: Prisma.StringNullableFilter<"Division"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Division"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Division"> | Date | string
   users?: Prisma.UserListRelationFilter
@@ -189,6 +197,7 @@ export type DivisionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  keterangan?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
@@ -202,6 +211,7 @@ export type DivisionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.DivisionWhereInput[]
   NOT?: Prisma.DivisionWhereInput | Prisma.DivisionWhereInput[]
   isActive?: Prisma.BoolFilter<"Division"> | boolean
+  keterangan?: Prisma.StringNullableFilter<"Division"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Division"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Division"> | Date | string
   users?: Prisma.UserListRelationFilter
@@ -211,6 +221,7 @@ export type DivisionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  keterangan?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DivisionCountOrderByAggregateInput
@@ -225,6 +236,7 @@ export type DivisionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Division"> | string
   name?: Prisma.StringWithAggregatesFilter<"Division"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"Division"> | boolean
+  keterangan?: Prisma.StringNullableWithAggregatesFilter<"Division"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Division"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Division"> | Date | string
 }
@@ -233,6 +245,7 @@ export type DivisionCreateInput = {
   id?: string
   name: string
   isActive?: boolean
+  keterangan?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutDivisionInput
@@ -242,6 +255,7 @@ export type DivisionUncheckedCreateInput = {
   id?: string
   name: string
   isActive?: boolean
+  keterangan?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutDivisionInput
@@ -251,6 +265,7 @@ export type DivisionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutDivisionNestedInput
@@ -260,6 +275,7 @@ export type DivisionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutDivisionNestedInput
@@ -269,6 +285,7 @@ export type DivisionCreateManyInput = {
   id?: string
   name: string
   isActive?: boolean
+  keterangan?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -277,6 +294,7 @@ export type DivisionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -285,6 +303,7 @@ export type DivisionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -304,6 +323,7 @@ export type DivisionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  keterangan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -312,6 +332,7 @@ export type DivisionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  keterangan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -320,6 +341,7 @@ export type DivisionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  keterangan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -344,6 +366,7 @@ export type DivisionCreateWithoutUsersInput = {
   id?: string
   name: string
   isActive?: boolean
+  keterangan?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -352,6 +375,7 @@ export type DivisionUncheckedCreateWithoutUsersInput = {
   id?: string
   name: string
   isActive?: boolean
+  keterangan?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -376,6 +400,7 @@ export type DivisionUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -384,6 +409,7 @@ export type DivisionUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -423,6 +449,7 @@ export type DivisionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   name?: boolean
   isActive?: boolean
+  keterangan?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   users?: boolean | Prisma.Division$usersArgs<ExtArgs>
@@ -435,11 +462,12 @@ export type DivisionSelectScalar = {
   id?: boolean
   name?: boolean
   isActive?: boolean
+  keterangan?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DivisionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["division"]>
+export type DivisionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "isActive" | "keterangan" | "createdAt" | "updatedAt", ExtArgs["result"]["division"]>
 export type DivisionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Division$usersArgs<ExtArgs>
   _count?: boolean | Prisma.DivisionCountOutputTypeDefaultArgs<ExtArgs>
@@ -454,6 +482,7 @@ export type $DivisionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     name: string
     isActive: boolean
+    keterangan: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["division"]>
@@ -829,6 +858,7 @@ export interface DivisionFieldRefs {
   readonly id: Prisma.FieldRef<"Division", 'String'>
   readonly name: Prisma.FieldRef<"Division", 'String'>
   readonly isActive: Prisma.FieldRef<"Division", 'Boolean'>
+  readonly keterangan: Prisma.FieldRef<"Division", 'String'>
   readonly createdAt: Prisma.FieldRef<"Division", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Division", 'DateTime'>
 }

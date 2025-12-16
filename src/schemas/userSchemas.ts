@@ -2,7 +2,6 @@ import { z } from "zod";
 
 export const roles = ["ADMIN", "SECURITY", "EMPLOYEE"] as const;
 
-
 export const userCreateSchema = z.object({
   name: z.string().min(1, { message: "Nama wajib diisi" }),
 
@@ -12,17 +11,23 @@ export const userCreateSchema = z.object({
     message: "Kata sandi minimal 8 karakter",
   }),
 
-  role: z.enum(roles, {
-    message: "Role tidak valid",
-  }).optional(),
+  role: z
+    .enum(roles, {
+      message: "Role tidak valid",
+    })
+    .optional(),
 
-  isActive: z.boolean({
-    message: "Status aktif harus boolean",
-  }).optional(),
+  isActive: z
+    .boolean({
+      message: "Status aktif harus boolean",
+    })
+    .optional(),
 
   divisionId: z.string().optional(),
 
-  // ===== tambahan sesuai model =====
+  ketStatus: z.string().optional(),
+  ttl: z.string().optional(),
+  noHp: z.string().optional(),
   address: z.string().optional(),
 
   education: z.string().optional(),
@@ -40,10 +45,9 @@ export const userCreateSchema = z.object({
     .optional()
     .refine(
       (val) => !val || !isNaN(Date.parse(val)),
-      "Tanggal mulai kerja tidak valid",
+      "Tanggal mulai kerja tidak valid"
     ),
 });
-
 
 export const userUpdateSchema = z.object({
   name: z.string().min(1, { message: "Nama wajib diisi" }).optional(),
@@ -57,13 +61,12 @@ export const userUpdateSchema = z.object({
   isActive: z.boolean({ message: "Status aktif harus boolean" }).optional(),
   divisionId: z.string({ message: "DivisionId harus string" }).optional(),
 
-  // 🔽 tambahan field sesuai model User
+  ketStatus: z.string().optional(),
   ttl: z.string().optional(),
+  noHp: z.string().optional(),
   address: z.string().optional(),
   education: z.string().optional(),
-  startWorkDate: z
-    .string()
-    .optional(),
+  startWorkDate: z.string().optional(),
   position: z.string().optional(),
   nik: z.string().optional(),
   bpjsTk: z.string().optional(),

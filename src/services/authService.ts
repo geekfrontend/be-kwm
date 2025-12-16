@@ -2,15 +2,17 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import * as userService from "./userService";
 import prisma from "../lib/prisma";
+import { sendError } from "../utils/response";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
-export const login = async (email: string, password: string) => {
-	const user = await userService.getUserByEmail(email);
+export const login = async (noHp: string, password: string) => {
+	const user = await userService.getUserByNoHp(noHp);
 
 	if (!user) {
-		throw new Error("Invalid email or password");
+		throw new Error("Pengguna Tidak Ditemukan ");
 	}
+
 
 	if (!user.isActive) {
 		const err = new Error("Account disabled") as Error & { status?: number };
@@ -21,11 +23,11 @@ export const login = async (email: string, password: string) => {
 	const isPasswordValid = await bcrypt.compare(password, user.password);
 
 	if (!isPasswordValid) {
-		throw new Error("Invalid email or password");
+		throw new Error("Password salah ");
 	}
 
 	const token = jwt.sign(
-		{ userId: user.id, email: user.email, role: user.role },
+		{ userId: user.id, noHp: user.noHp, role: user.role },
 		JWT_SECRET,
 		{ expiresIn: "1d" },
 	);

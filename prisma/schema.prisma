@@ -21,11 +21,12 @@ enum AttendanceStatus {
 model User {
   id            String       @id @default(cuid())
   name          String
-  email         String       @unique
+  email         String       
   password      String
   token         String?      @db.Text
   role          Role         @default(EMPLOYEE)
   isActive      Boolean      @default(true) @map("is_active")
+  noHp          String       @unique
   ttl           String?      
   address       String?      @db.Text
   education     String? 
@@ -34,7 +35,7 @@ model User {
   nik           String?
   bpjsTk        String?      @map("bpjs_tk")
   bpjsKes       String?      @map("bpjs_kes")
-
+  ketStatus     String?
   createdAt     DateTime     @default(now()) @map("created_at")
   updatedAt     DateTime     @updatedAt @map("updated_at")
 
@@ -72,12 +73,14 @@ model Division {
   id          String   @id @default(cuid())
   name        String   @unique
   isActive    Boolean  @default(true) @map("is_active")
+  keterangan  String?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   users       User[]
 
   @@map("divisions")
 }
+
 
 model MealAllowance {
   id           String     @id @default(cuid())

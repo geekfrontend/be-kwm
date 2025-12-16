@@ -9,14 +9,14 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 export interface AuthRequest extends Request {
 	user?: {
 		userId: string;
-		email: string;
+		noHp: string;
 		role: $Enums.Role;
 	};
 }
 
 interface AppJwtPayload extends JwtPayload {
 	userId: string;
-	email: string;
+	noHp: string;
 	role: string;
 }
 
@@ -56,7 +56,7 @@ export const authenticateToken = async (
 		}
 		(req as AuthRequest).user = {
 			userId,
-			email: dbUser.email,
+			noHp: dbUser.noHp,
 			role: dbUser.role,
 		};
 		next();

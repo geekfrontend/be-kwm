@@ -15,7 +15,7 @@ if (!process.env.JWT_SECRET) {
 const app = express();
 
 const allowedOrigins = (
-  process.env.CORS_ORIGINS || "http://localhost:3000,http://192.168.1.43:3000"
+  process.env.CORS_ORIGINS || "http://localhost:3000,http://10.59.72.230:3000"
 )
   .split(",")
   .map((s) => s.trim())

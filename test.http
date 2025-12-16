@@ -3,10 +3,10 @@
 ### Login Admin
 POST http://localhost:3001/auth/login
 Content-Type: application/json
-
+ 
 {
-  "email": "alice@prisma.io",
-  "password": "password123"
+  "noHp": "0844433112",
+  "password": "12345678"
 }
 
 ### Get Me (Admin)

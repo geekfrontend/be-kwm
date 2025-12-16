@@ -9,8 +9,8 @@ export const login = async (
 	next: NextFunction,
 ) => {
 	try {
-		const { email, password } = req.body;
-		const result = await authService.login(email, password);
+		const { noHp, password } = req.body;
+		const result = await authService.login(noHp, password);
 		sendSuccess(res, result, "Login berhasil");
 	} catch (error: unknown) {
 		const status =

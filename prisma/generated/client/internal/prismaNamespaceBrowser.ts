@@ -81,6 +81,7 @@ export const UserScalarFieldEnum = {
   token: 'token',
   role: 'role',
   isActive: 'isActive',
+  noHp: 'noHp',
   ttl: 'ttl',
   address: 'address',
   education: 'education',
@@ -89,6 +90,7 @@ export const UserScalarFieldEnum = {
   nik: 'nik',
   bpjsTk: 'bpjsTk',
   bpjsKes: 'bpjsKes',
+  ketStatus: 'ketStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   divisionId: 'divisionId'
@@ -115,6 +117,7 @@ export const DivisionScalarFieldEnum = {
   id: 'id',
   name: 'name',
   isActive: 'isActive',
+  keterangan: 'keterangan',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -158,6 +161,7 @@ export const UserOrderByRelevanceFieldEnum = {
   email: 'email',
   password: 'password',
   token: 'token',
+  noHp: 'noHp',
   ttl: 'ttl',
   address: 'address',
   education: 'education',
@@ -166,6 +170,7 @@ export const UserOrderByRelevanceFieldEnum = {
   nik: 'nik',
   bpjsTk: 'bpjsTk',
   bpjsKes: 'bpjsKes',
+  ketStatus: 'ketStatus',
   divisionId: 'divisionId'
 } as const
 
@@ -182,7 +187,8 @@ export type AttendanceOrderByRelevanceFieldEnum = (typeof AttendanceOrderByRelev
 
 export const DivisionOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  keterangan: 'keterangan'
 } as const
 
 export type DivisionOrderByRelevanceFieldEnum = (typeof DivisionOrderByRelevanceFieldEnum)[keyof typeof DivisionOrderByRelevanceFieldEnum]
