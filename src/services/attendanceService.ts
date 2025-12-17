@@ -305,10 +305,7 @@ export const getTodayAttendance = async (userId: string) => {
 export const getAttendanceByUserId = async (userId: string) => {
   const records = await prisma.attendance.findMany({
     where: { userId },
-    orderBy: [
-      { attendanceDate: "desc" },
-      { createdAt: "desc" },
-    ],
+    orderBy: [{ attendanceDate: "desc" }, { createdAt: "desc" }],
     include: {
       mealAllowance: {
         select: {
@@ -326,8 +323,7 @@ export const getAttendanceByUserId = async (userId: string) => {
           name: true,
           email: true,
         },
-      }
-
+      },
     },
   });
 
@@ -419,3 +415,67 @@ export const markMealAllowancePaid = async (attendanceId: string) => {
   return result;
 };
 
+
+export const getAttendanceRecap = async (start: Date, end: Date) => {
+  // 1️⃣ Ambil semua user aktif selain ADMIN
+  const users = await prisma.user.findMany({
+    where: {
+      isActive: true,
+      role: {
+        not: "ADMIN",
+      },
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  const userIds = users.map((u) => u.id);
+
+  // 2️⃣ Hitung total divisi aktif
+  const totalDivisi = await prisma.division.count({
+    where: {
+      isActive: true,
+    },
+  });
+
+  if (userIds.length === 0) {
+    return {
+      tepatWaktu: 0,
+      telat: 0,
+      alpa: totalDivisi,
+      totalUser: 0,
+      totalDivisi,
+    };
+  }
+
+  // 3️⃣ Ambil presensi pada range tanggal
+  const attendances = await prisma.attendance.findMany({
+    where: {
+      userId: { in: userIds },
+      attendanceDate: { gte: start, lte: end },
+    },
+    select: {
+      status: true, // ONTIME | LATE
+    },
+  });
+
+  let tepatWaktu = 0;
+  let telat = 0;
+
+  for (const att of attendances) {
+    if (att.status === "ONTIME") {
+      tepatWaktu++;
+    } else if (att.status === "LATE") {
+      telat++;
+    }
+  }
+
+  return {
+    tepatWaktu,
+    telat,
+    alpa: totalDivisi, // 🔥 diganti total divisi aktif
+    totalUser: userIds.length,
+    totalDivisi,
+  };
+};

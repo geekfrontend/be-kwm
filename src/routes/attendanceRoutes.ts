@@ -11,6 +11,7 @@ import {
   allowanceSummary,
   markAllowancePaid,
   attendanceByUserId,
+  attendanceRecap,
 } from "../controllers/attendanceController.js";
 import { $Enums } from "../../prisma/generated/client/client";
 
@@ -45,6 +46,13 @@ router.put(
   authenticateToken,
   authorizeRole($Enums.Role.ADMIN),
   markAllowancePaid
+);
+
+router.get(
+  "/recap",
+  // authenticateToken,
+  // authorizeRole($Enums.Role.ADMIN),
+  attendanceRecap
 );
 
 export default router;

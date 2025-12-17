@@ -19,8 +19,8 @@ router.post(
 );
 router.get(
 	"/",
-	authenticateToken,
-	authorizeRole("ADMIN"),
+	// authenticateToken,
+	// authorizeRole("ADMIN"),
 	userController.getUsers,
 );
 router.get(

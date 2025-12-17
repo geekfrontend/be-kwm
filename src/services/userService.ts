@@ -67,6 +67,15 @@ export const getUserById = async (id: string) => {
 	});
 };
 
+export const getTotalActiveUsers = async () => {
+  return await prisma.user.count({
+    where: {
+      isActive: true,
+    },
+  });
+};
+
+
 export const getUserByNoHp = async (noHp: string) => {
 	return await prisma.user.findUnique({
 		where: { noHp },

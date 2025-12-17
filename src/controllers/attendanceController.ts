@@ -10,6 +10,7 @@ import {
   getMealAllowanceSummary,
   markMealAllowancePaid,
   getAttendanceByUserId,
+  getAttendanceRecap,
 } from "../services/attendanceService.js";
 
 export const scan = async (req: Request, res: Response, next: NextFunction) => {
@@ -198,6 +199,44 @@ export const markAllowancePaid = async (
     res.json({
       message: "Tunjangan makan berhasil dibayar",
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const attendanceRecap = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const startRaw = req.query.start as string;
+    const endRaw = req.query.end as string;
+
+    let start: Date;
+    let end: Date;
+
+    if (startRaw && endRaw) {
+      start = new Date(startRaw);
+      end = new Date(endRaw);
+    } else {
+      // default: hari ini
+      const now = new Date();
+      start = new Date(now);
+      start.setHours(0, 0, 0, 0);
+
+      end = new Date(now);
+      end.setHours(23, 59, 59, 999);
+    }
+
+    const recap = await getAttendanceRecap(start, end);
+
+    sendSuccess(
+      res,
+      { ...recap, start, end },
+      "Rekap presensi berhasil diambil"
+    );
   } catch (error) {
     next(error);
   }
